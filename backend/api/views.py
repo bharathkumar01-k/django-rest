@@ -8,10 +8,9 @@ def api_response(req,*args,**kwargs):
 
 def echo_data(request,*args,**kwargs):
     body={}
-    query = {}
+    query = request.GET.dict() or request.POST.dict()
     print('printing the request',request.GET.dict())
     try:
-        query = request.GET.dict() or request.POST.dict()
         body = json.loads(request.body)
     except:
         pass
