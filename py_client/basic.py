@@ -1,6 +1,6 @@
 import requests
 
-url = "http://httpbin.org/anything"
+url = "http://localhost:8080/"
 
 response = requests.get(url)
 print(response.text)
