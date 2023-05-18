@@ -3,6 +3,11 @@ import json
 from django.http import JsonResponse
 from products.models import Products
 
+from django.forms.models import model_to_dict #Use this function to convert query set of model to dict
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 
 def api_response(req,*args,**kwargs):
     return JsonResponse({"message": "Hello My First Django Application"})
@@ -21,6 +26,7 @@ def echo_data(request,*args,**kwargs):
     else:
         return JsonResponse(query)
     
+@api_view(["GET"])
 def return_data_from_model(request,*args,**kwargs):
     querySet = Products.objects.values()
     data ={
@@ -36,4 +42,4 @@ def return_data_from_model(request,*args,**kwargs):
             entry["Content"] = value["Content"]
             entry["Price"] = "₹ "+str(value["Price"])
             data["entries"].append(entry)
-    return JsonResponse(data)
+    return Response(data)
